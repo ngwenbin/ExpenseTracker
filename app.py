@@ -136,11 +136,10 @@ def userexpenses(wkex_id):
     name = current_user.username
     items = db.session.query(UserExpense).filter(UserExpense.userid==userids, UserExpense.expense_date==wkex_id)
 
-    state='not'
-
-    todays = date.today()
-    if wkex_id == todays:
-        state='today'
+    todays = str(date.today())
+    state="today"
+    if (wkex_id < todays) is True:
+        state="not"
 
     if form.validate_on_submit():
         expenses = UserExpense(category=form.category.data, description=form.description.data,
