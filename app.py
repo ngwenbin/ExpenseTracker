@@ -112,7 +112,7 @@ def overview():
 
     item = list(zip_longest(date_list,date_expense_list,date_list, fillvalue=""))
 
-    fig, ax = plt.subplots(figsize=(7, 3))
+    fig, ax = plt.subplots(figsize=(11, 5))
     ax.plot(date_list, [float(g) for g in date_expense_list], label="Expenses")
     ax.legend()
     fig.suptitle('Expense pattern')
@@ -213,12 +213,12 @@ def charts(day_id):
         sum_list.append(f'{Sums}')
 
     # Highest expenditure graph
-    fig, axs = plt.subplots(figsize=(6, 3))
+    fig, axs = plt.subplots(figsize=(10, 5))
     axs.bar(cat_list, [float(g) for g in sum_list])
     fig.suptitle('Expenditure breakdown')
 
     # Frequency graph
-    fig1, ax1 = plt.subplots(figsize=(6, 3), subplot_kw=dict(aspect="equal"))
+    fig1, ax1 = plt.subplots(figsize=(10, 5), subplot_kw=dict(aspect="equal"))
 
     wedges, texts = ax1.pie(counts_list, wedgeprops=dict(width=0.5), startangle=-40)
 
