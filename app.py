@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash, request, abort
-from functions import UserLogin, UserRegistration, NewExpense
+from .functions import UserLogin, UserRegistration, NewExpense
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from datetime import datetime, timedelta, date
