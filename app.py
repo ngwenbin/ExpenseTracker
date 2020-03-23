@@ -185,7 +185,7 @@ def update_expense(wkex_id, ex_id):
         form.category.data = expenses.category
         form.description.data =expenses.description
         form.expense.data = expenses.expense
-    return render_template('expenses.html', title='Expenses',form=form, name=name, wkex_id=wkex_id)
+    return render_template('expenses.html', title='Expenses',form=form, name=name, wkex_id=wkex_id, state='today')
 
 @app.route("/expense/<string:day_id>/charts", methods=['GET', 'POST'])
 @login_required
