@@ -7,6 +7,55 @@
             <a class="btn btn-primary" href="{{url_for('logout')}}">Logout</a>
         </div>
 </h1>
+<div>
+    <form method="POST" action="" >
+        {{ form.hidden_tag() }}
+        <div class="form-row">
+                <div class="col">
+                    {{form.category.label(class="form-control-label")}}
+                    {% if form.category.errors %}
+                        {{ form.category(class="form-control form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.category.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                    {% else %}
+                        {{ form.category(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+                <div class="col">
+                    {{form.description.label(class="form-control-label")}}
+                    {% if form.description.errors %}
+                        {{ form.description(class="form-control form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.description.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                    {% else %}
+                        {{ form.description(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+                <div class="col">
+                    {{form.expense.label(class="form-control-label")}}
+                    {% if form.expense.errors %}
+                        {{ form.expense(class="form-control form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.expense.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                    {% else %}
+                        {{ form.expense(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+            <div class="col"><br>
+                {{form.submit(class="btn btn-secondary mx-5")}}
+            </div>
+        </div>
+    </form>
+</div>
     {% if normal %}
         <div>
             <br>

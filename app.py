@@ -95,6 +95,12 @@ def overview():
 
     filters = db.session.query(UserExpense.expense_date).filter(UserExpense.userid==userids).distinct()
 
+    if form.validate_on_submit():
+        expenses = UserExpense(category=form.category.data, description=form.description.data,
+                                expense=form.expense.data, expensedate=current_user)
+        db.session.add(expenses)
+        db.session.commit()
+
     date_list=[]
     for u in filters:
         date_list.append(f'{u.expense_date}')
