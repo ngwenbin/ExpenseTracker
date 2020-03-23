@@ -7,6 +7,7 @@
             <a class="btn btn-primary" href="{{url_for('logout')}}">Logout</a>
         </div>
 </h1>
+    {% if state == today %}
     <div>
         <form method="POST" action="" >
             {{ form.hidden_tag() }}
@@ -56,6 +57,8 @@
             </div>
         </form>
     </div>
+    {% else %}
+    {% endif %}
     {% if normal %}
         <div><br>
             <div class='btn-toolbar'>
