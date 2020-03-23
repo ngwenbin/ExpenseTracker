@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block content %}
+<br><br>
+<h1>
+    <br><span>{{name}}'s Expenses<span>
+        <div class='btn float-right'>
+            <a class="btn btn-primary" href="{{url_for('logout')}}">Logout</a>
+        </div>
+</h1>
+    <div>
+        <form method="POST" action="" >
+            {{ form.hidden_tag() }}
+            <div class="form-row">
+                    <div class="col">
+                        {{form.category.label(class="form-control-label")}}
+                        {% if form.category.errors %}
+                            {{ form.category(class="form-control form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.category.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                        {% else %}
+                            {{ form.category(class="form-control form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        {{form.description.label(class="form-control-label")}}
+                        {% if form.description.errors %}
+                            {{ form.description(class="form-control form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.description.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                        {% else %}
+                            {{ form.description(class="form-control form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        {{form.expense.label(class="form-control-label")}}
+                        {% if form.expense.errors %}
+                            {{ form.expense(class="form-control form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.expense.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                        {% else %}
+                            {{ form.expense(class="form-control form-control") }}
+                        {% endif %}
+                    </div>
+                <div class="col"><br>
+                    {{form.submit(class="btn btn-secondary mx-5")}}
+                </div>
+            </div>
+        </form>
+    </div>
+    {% if normal %}
+        <div><br>
+            <div class='btn-toolbar'>
+                <a href="{{url_for('overview')}}">
+                    <button class="btn btn-secondary">Back</button>
+                </a>
+                <a href="{{ids}}/charts">
+                    <button class="btn btn-secondary mx-2">View Charts</button>
+                </a>
+                <br>
+            </div>
+            <br>
+            <h5>Expenses for:&ensp;{{ids}}</h5>
+            <br>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Expenses</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for items in items %}
+                    <tr>
+                        <th scope="row">•</th>
+                        <td>{{items.category}}</td>
+                        <td>{{items.description}}</td>
+                        <td>${{items.expense}}</td>
+                        <td><a href="{{items.expense_date}}/{{items.id}}/update">edit</a></td>
+                        <td><a href="{{items.expense_date}}/{{items.id}}/delete">delete</a></td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+
+            </table>
+        </div>
+    {% else %}
+    <div><br>
+        <div class='btn-toolbar'>
+            <a href="/expense/{{wkex_id}}">
+                <button class="btn btn-secondary">Back</button>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+{% endblock content %}

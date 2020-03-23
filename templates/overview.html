@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+<br><br>
+<h1>
+    <br><span>{{name}}'s Expenses Overview<span>
+        <div class='btn float-right'>
+            <a class="btn btn-primary" href="{{url_for('logout')}}">Logout</a>
+        </div>
+</h1>
+    {% if normal %}
+        <div>
+            <br>
+            <img src="{{image}}"/>
+        </div>
+            <br>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Expenses</th>
+                        <th scope="col">View/ Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x,y,z in item %}
+                    <tr>
+                        <th scope="row">•</th>
+                        <td>{{x}}</td>
+                        <td>${{y}}</td>
+                        <td><a href="expense/{{z}}">View / Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div><br>
+        <div class='btn-toolbar'>
+            <a href="{{url_for('userexpenses')}}">
+                <button class="btn btn-secondary">Back</button>
+            </a>
+    </div>
+    {% endif %}
+{% endblock content %}

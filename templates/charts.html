@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>
+        <br><span>{{name}}'s Expenses Charts<span>
+            <div class='btn float-right'>
+                <a class="btn btn-primary" href="{{url_for('logout')}}">Logout</a>
+            </div>
+    </h1>
+    <div class='btn-toolbar'>
+        <a href=/expense/{{day_id}}>
+            <button class="btn btn-secondary">Back</button>
+        </a>
+        <h5>&emsp;Expenses for:&ensp;{{day_id}}</h5>
+
+    </div>
+    <br>
+    <img src="{{ image1 }}"/>
+    <br>
+    <br>
+    <img src="{{ image2 }}"/>
+
+{% endblock content %}

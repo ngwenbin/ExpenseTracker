@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+    <br><br>
+    <h1>Expenses Tracker</h1>
+    <br>
+    <form method="POST" action="" >
+        {{form.hidden_tag()}}
+        <fieldset>
+            <div class="form-group">
+                {{form.username.label(class="form-control-label")}}
+                {{form.username(class="form-control form-control-lg")}}
+            </div>
+            <div class="form-group">
+                {{form.password.label(class="form-control-label")}}
+                {{form.password(class="form-control form-control-lg")}}
+            </div>
+            <div class="form-check">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label") }}
+            </div>
+            <br>
+        </fieldset>
+        <div class="form-group">
+            {{form.submit(class="btn btn-primary")}}
+        </div>
+    </form>
+    <div>
+        <p1>
+            Click
+            <a href="{{url_for('register')}}">here</a>
+            to register
+        </p1>
+    </div>
+</div>
+{% endblock content %}
