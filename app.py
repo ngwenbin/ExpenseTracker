@@ -141,9 +141,11 @@ def userexpenses(wkex_id):
     items = db.session.query(UserExpense).filter(UserExpense.userid==userids, UserExpense.expense_date==wkex_id)
 
     todays = str(date.today())
-    state="today"
-    if (wkex_id < todays) is True:
-        state="not"
+    state="not"
+    if (wkex_id = todays) is True:
+        state="today"
+    if (wkex_id > todays) is True:
+        abort(404)
 
     # Forms
     if form.validate_on_submit():
