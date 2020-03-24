@@ -118,7 +118,6 @@ def overview():
     ax.plot(date_list, [float(g) for g in date_expense_list], label="Expenses")
     ax.legend()
     fig.suptitle('Expense pattern')
-    ax.set_ylim(bottom=0)
 
     patternpngImage = io.BytesIO()
     FigureCanvas(fig).print_png(patternpngImage)
