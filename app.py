@@ -208,7 +208,7 @@ def charts(day_id):
     counts_list=[]
     for item in cat_list:
         counts = db.session.query(UserExpense.category).filter(UserExpense.userid==userids,
-                                                               UserExpense.expense_date==day_id
+                                                               UserExpense.expense_date==day_id,
                                                                UserExpense.category==item).count()
         counts_list.append(counts)
 
