@@ -91,31 +91,34 @@ def overview():
     form = NewExpense()
     userids = current_user.id
     name = current_user.username
-    page = request.args.get('page', 1, type=int)
 
-    filters = db.session.query(UserExpense.expense_date).filter(UserExpense.userid==userids).distinct()
-
+    # Forms
     if form.validate_on_submit():
         expenses = UserExpense(category=form.category.data, description=form.description.data,
                                 expense=form.expense.data, expensedate=current_user)
         db.session.add(expenses)
         db.session.commit()
 
-    date_list=[]
+    # Queries
+    filters = db.session.query(UserExpense.expense_date).filter(UserExpense.userid==userids).distinct()
+
+    date_list=[] #List of distinct dates
     for u in filters:
         date_list.append(f'{u.expense_date}')
 
-    date_expense_list=[]
+    date_expense_list=[] #List of expenses for that specific date
     for item in date_list:
         date_expense = db.session.query(func.sum(UserExpense.expense)).filter(UserExpense.userid==userids, UserExpense.expense_date==item).scalar()
         date_expense_list.append(f'{date_expense}')
 
     item = list(zip_longest(date_list,date_expense_list,date_list, fillvalue=""))
 
+    # Matplotlib
     fig, ax = plt.subplots(figsize=(11, 5))
     ax.plot(date_list, [float(g) for g in date_expense_list], label="Expenses")
     ax.legend()
     fig.suptitle('Expense pattern')
+    ax.set_ylim(bottom=0)
 
     patternpngImage = io.BytesIO()
     FigureCanvas(fig).print_png(patternpngImage)
@@ -134,6 +137,8 @@ def userexpenses(wkex_id):
     form = NewExpense()
     userids = current_user.id
     name = current_user.username
+
+    # Queries
     items = db.session.query(UserExpense).filter(UserExpense.userid==userids, UserExpense.expense_date==wkex_id)
 
     todays = str(date.today())
@@ -141,22 +146,22 @@ def userexpenses(wkex_id):
     if (wkex_id < todays) is True:
         state="not"
 
+    # Forms
     if form.validate_on_submit():
         expenses = UserExpense(category=form.category.data, description=form.description.data,
                                 expense=form.expense.data, expensedate=current_user)
-
         db.session.add(expenses)
         db.session.commit()
-
         flash('Expense added!', 'success')
         return redirect(url_for('userexpenses', wkex_id=wkex_id))
+
     return render_template('expenses.html', normal='normal', title='Expenses',
                            form=form, items=items, name=name, ids=wkex_id, state=state)
 
 @app.route('/expense/<string:wkex_id>/<int:ex_id>/delete', methods=['GET','POST'])
 @login_required
 def delete_expense(wkex_id, ex_id):
-    expenses = db.session.query(UserExpense).get_or_404(ex_id)
+    expenses = db.session.query(UserExpense).get_or_404(ex_id) # Query for valid access
     if expenses.expensedate != current_user:
         abort(403)
     db.session.delete(expenses)
@@ -168,7 +173,7 @@ def delete_expense(wkex_id, ex_id):
 @login_required
 def update_expense(wkex_id, ex_id):
     name = current_user.username
-    expenses = db.session.query(UserExpense).get_or_404(ex_id)
+    expenses = db.session.query(UserExpense).get_or_404(ex_id) # Query for valid access
     if expenses.expensedate != current_user:
         abort(403)
     form = NewExpense()
