@@ -142,7 +142,7 @@ def userexpenses(wkex_id):
 
     todays = str(date.today())
     state="not"
-    if (wkex_id = todays) is True:
+    if (wkex_id == todays) is True:
         state="today"
     if (wkex_id > todays) is True:
         abort(404)
