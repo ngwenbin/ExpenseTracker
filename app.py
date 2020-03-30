@@ -17,7 +17,7 @@ import numpy as np
 app = Flask(__name__)
 SECRET_KEY = os.urandom(16)
 app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://iicngfbmwgfwqm:c50aeca0898d76f809c8437bb3e07bb69ca89851cd9125d31ea5b5b9403bd7bc@ec2-18-213-176-229.compute-1.amazonaws.com:5432/db4bvscc4mss13'
+app.config['SQLALCHEMY_DATABASE_URI'] = ' '
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
